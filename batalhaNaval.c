@@ -1,8 +1,44 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 // Desafio Batalha Naval - MateCheck
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
+
+void print_matriz(char **table){
+    for(int i = 0; table[i]; i++){
+        for(int j = 0; table[i][j]; j++){
+            printf("%c", table[i][j]);
+            if(table[i][j + 1] != '\0')
+                printf(", ");
+        }
+        printf("\n");
+    }
+}
+
+void clean_matriz(char **table){
+    for(int i = 0; table[i]; i++)
+        free(table[i]);
+    free(table);
+}
+void novato(){
+    char **table = calloc(sizeof(char *), 6);
+    for(int i = 0; i < 5; i++){
+        table[i] = calloc(sizeof(char), 6);
+    }
+
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            if (i == 4 && j > 1)
+                table[i][j] = 'N';
+            else if(j == 0 && i < 3)
+                table[i][j] = 'N';
+            else
+                table[i][j] = '0';
+        }
+    }
+    print_matriz(table);
+    clean_matriz(table);
+}
 
 int main() {
     // Nível Novato - Posicionamento dos Navios
@@ -10,6 +46,7 @@ int main() {
     // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
     // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
 
+    novato();
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
     // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
